@@ -22,6 +22,12 @@ public final class Candlestick {
 		this.data = data;
 	}
 
+	@Override
+	public String toString() {
+	
+		return "Abertura " + this.abertura + ", Fechamento " + this.fechamento + ", Mínima " +  this.minimo + ", Máxima " + this.maximo + ", Volume " + this.volume ;
+	}
+	
 	public boolean isAlta(){
 		return this.abertura < this.fechamento;
 	}
@@ -53,6 +59,4 @@ public final class Candlestick {
 	public Calendar getData() {
 		return data;
 	}
-	
-	
 }
