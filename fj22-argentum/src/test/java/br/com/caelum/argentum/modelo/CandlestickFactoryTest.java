@@ -34,7 +34,7 @@ public class CandlestickFactoryTest {
 	    Assert.assertEquals(16760.0, candle.getVolume(), 0.00001);
 	}
 	
-	@Test
+	@Test(expected=ArrayIndexOutOfBoundsException.class)
 	public void semNegociacoesGeraCandleComZeros(){
 		  Calendar hoje = Calendar.getInstance();
 		  
@@ -42,7 +42,13 @@ public class CandlestickFactoryTest {
 		  
 		  CandlestickFactory fabrica = new CandlestickFactory();
 		  Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+		  
 		  Assert.assertEquals(0.0, candle.getVolume(), 0.00001);
+		  Assert.assertEquals(0.0, candle.getAbertura(), 0.0001);
+		  Assert.assertEquals(0.0, candle.getFechamento(), 0.0001);
+		  Assert.assertEquals(0.0, candle.getMinimo(), 0.0001);
+		  Assert.assertEquals(0.0, candle.getMaximo(), 0.0001);
+		  
 	}
 
 	@Test
@@ -59,5 +65,32 @@ public class CandlestickFactoryTest {
 		  Assert.assertEquals(40.5, candle.getMaximo(), 0.00001);
 		  Assert.assertEquals(4050.0, candle.getVolume(), 0.00001);
 	}
+
+	@Test
+	public void precoMaximoNaoPodeSerMenorQueMinimo(){
+		  Calendar hoje = Calendar.getInstance();
+		  
+		  Negociacao negociacao1 = new Negociacao(40.5, 100, hoje);
+		  Negociacao negociacao2 = new Negociacao(40.7, 200, hoje);
+		  
+		  List<Negociacao> negociacoes = Arrays.asList(negociacao1, negociacao2);
+		  CandlestickFactory fabrica = new CandlestickFactory();
+		  Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+		  
+		  Assert.assertEquals(40.5, candle.getAbertura(), 0.00001);
+		  Assert.assertEquals(40.7, candle.getFechamento(), 0.00001);
+		  Assert.assertEquals(40.5, candle.getMinimo(), 0.00001);
+		  Assert.assertEquals(40.7, candle.getMaximo(), 0.00001);
+		  Assert.assertEquals(12190.0, candle.getVolume(), 0.00001);		
+	}
 	
+	@Test
+	public void negociacoesEmOrdemCrescenteDeValor (){
+	
+	}
+	
+	@Test
+	public void negociacoesEmOrdemDecrescenteDeValor(){
+		
+	}
 }

@@ -8,19 +8,23 @@ import java.util.List;
 public class CandlestickFactory {
 
 	public Candlestick constroiCandleParaData(Calendar data, List<Negociacao> negociacoes){
+		if(negociacoes.isEmpty()){
+			throw new ArrayIndexOutOfBoundsException("ARRAY VAZIOO");
+		}
+		
 		double maximo = negociacoes.get(0).getPreco();
 		double minimo =  negociacoes.get(0).getPreco();
 		Double volume = 0.0;
 		
-		for (Negociacao negociacao : negociacoes) {
-			volume += negociacao.getVolume();
-			
-			if(negociacao.getPreco()> maximo){
-				maximo = negociacao.getPreco();
-			}else if(negociacao.getPreco()<minimo){
-				minimo = negociacao.getPreco();
+			for (Negociacao negociacao : negociacoes) {
+				volume += negociacao.getVolume();
+				
+				if(negociacao.getPreco()> maximo){
+					maximo = negociacao.getPreco();
+				}else if(negociacao.getPreco()<minimo){
+					minimo = negociacao.getPreco();
+				}
 			}
-		}
 	
 		Double abertura = new Double(0.00);
 		abertura = negociacoes.get(0).getPreco();
