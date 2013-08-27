@@ -5,6 +5,8 @@ import java.util.Calendar;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class NegociacaoTest {
 
 	@Test

@@ -44,6 +44,10 @@ public class CandleBuilder {
 	}
 	
 	public Candlestick gerarCandle(){
+		if(this.abertura == 0.0 | this.fechamento == 0.0 | this.minimo == 0.0 | this.maximo == 0.0 |  this.volume == 0.0 |  this.data == null){
+			throw new IllegalStateException(); 	
+		}
+		
 		return new Candlestick(this.abertura, this.fechamento, this.minimo, this.maximo, this.volume, this.data);
 	}
 	

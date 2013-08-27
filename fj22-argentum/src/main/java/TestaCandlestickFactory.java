@@ -1,10 +1,9 @@
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
-import br.com.caelum.argentum.modelo.Candlestick;
-import br.com.caelum.argentum.modelo.CandlestickFactory;
 import br.com.caelum.argentum.modelo.Negociacao;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 public class TestaCandlestickFactory {
@@ -48,20 +47,38 @@ public class TestaCandlestickFactory {
 //		System.out.println(candle.getVolume());
 
 		//teste3
-		Calendar hoje = Calendar.getInstance();
-	    
-	    List<Negociacao> negociacoes = Arrays.asList();
-	    
-	    CandlestickFactory fabrica = new CandlestickFactory();
-	    Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
-	    
-	    System.out.println(candle.getAbertura());
-	    System.out.println(candle.getFechamento());
-	    System.out.println(candle.getMinimo());
-	    System.out.println(candle.getMaximo());
-	    System.out.println(candle.getVolume());
+//		Calendar hoje = Calendar.getInstance();
+//	    
+//	    List<Negociacao> negociacoes = Arrays.asList();
+//	    
+//	    CandlestickFactory fabrica = new CandlestickFactory();
+//	    Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+//	    
+//	    System.out.println(candle.getAbertura());
+//	    System.out.println(candle.getFechamento());
+//	    System.out.println(candle.getMinimo());
+//	    System.out.println(candle.getMaximo());
+//	    System.out.println(candle.getVolume());
 		
+		//teste com xml 1
+//		Negociacao negociacao = new Negociacao(3.20, 100, Calendar.getInstance());
+//		XStream stream = new XStream(new DomDriver());
+//		stream.autodetectAnnotations(true);
+//		//		stream.alias("negociacao", Negociacao.class);
+//		System.out.println(stream.toXML(negociacao));
 		
+		//teste com xml 2
+//		XStream stream = new XStream(new DomDriver());
+//		stream.alias("negociacao", Negociacao.class);
+//		
+//		Negociacao negociacao = (Negociacao) stream.fromXML("" +
+//				"<negociacao>" +
+//					"<preco>42.3</preco>" +
+//					"<quantidade>100</quantidade>" +
+//				"</negociacao>");
+//
+//		System.out.println(negociacao.getPreco());
+
 		
 	}
 	
