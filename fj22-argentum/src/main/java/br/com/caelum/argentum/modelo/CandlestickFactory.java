@@ -2,6 +2,7 @@ package br.com.caelum.argentum.modelo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,5 +41,34 @@ public class CandlestickFactory {
 		volume = new Double (ab.doubleValue());
 		
 		return new CandleBuilder().comAbertura(abertura).comFechamento(fechamento).comMinimo(minimo).comMaximo(maximo).comVolume(volume).comData(data).gerarCandle();
+	}
+
+	public List<Candlestick> constroiCandles(List<Negociacao> todasNegociacoes) {
+		List<Candlestick> candles = new ArrayList<Candlestick>();
+
+		  List<Negociacao> negociacoesDoDia = new ArrayList<Negociacao>();
+		  Calendar dataAtual = todasNegociacoes.get(0).getData();
+
+		  for (Negociacao negociacao : todasNegociacoes) {
+			  if (negociacao.getData().before(dataAtual)) {
+				    throw new IllegalStateException("negociações em ordem errada");
+			  }
+			  
+			// se não for mesmo dia, fecha candle e reinicia variáveis
+		    if (!negociacao.isMesmoDia(dataAtual)) {
+		      Candlestick candleDoDia = constroiCandleParaData(dataAtual, 
+		                            negociacoesDoDia);
+		      candles.add(candleDoDia);
+		      negociacoesDoDia = new ArrayList<Negociacao>();
+		      dataAtual = negociacao.getData();
+		    }
+		    negociacoesDoDia.add(negociacao);
+		  }
+		  // adiciona último candle
+		  Candlestick candleDoDia = constroiCandleParaData(dataAtual,
+		         negociacoesDoDia);
+		  candles.add(candleDoDia);
+
+		  return candles;
 	}
 }
